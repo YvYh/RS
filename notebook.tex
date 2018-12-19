@@ -1,0 +1,786 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HomeWork}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{sqlalchemy} \PY{k}{import} \PY{n}{create\PYZus{}engine}
+        \PY{k+kn}{from} \PY{n+nn}{sqlalchemy}\PY{n+nn}{.}\PY{n+nn}{exc} \PY{k}{import} \PY{n}{ResourceClosedError}
+        \PY{k+kn}{from} \PY{n+nn}{sqlalchemy}\PY{n+nn}{.}\PY{n+nn}{types} \PY{k}{import} \PY{n}{VARCHAR}
+        \PY{k+kn}{from} \PY{n+nn}{functools} \PY{k}{import} \PY{n}{partial}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{spatial} \PY{k}{import} \PY{n}{distance}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{NearestNeighbors}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}\PY{p}{,} \PY{n}{HTML}\PY{p}{,} \PY{n}{Markdown}\PY{p}{,} \PY{n}{Latex}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{extmath} \PY{k}{import} \PY{n}{randomized\PYZus{}svd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \subsection{Reading the data from database into a pandas
+dataframe}\label{reading-the-data-from-database-into-a-pandas-dataframe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}connection}
+        \PY{k}{def} \PY{n+nf}{DatabaseConnect}\PY{p}{(}\PY{n}{username}\PY{p}{,} \PY{n}{password}\PY{p}{,} \PY{n}{schema}\PY{p}{)}\PY{p}{:}
+            \PY{n}{conn\PYZus{}str} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mysql+pymysql://}\PY{l+s+si}{\PYZob{}username\PYZcb{}}\PY{l+s+s2}{:}\PY{l+s+si}{\PYZob{}password\PYZcb{}}\PY{l+s+s2}{@localhost/}\PY{l+s+si}{\PYZob{}schema\PYZcb{}}\PY{l+s+s2}{?charset=utf8\PYZam{}use\PYZus{}unicode=1}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                                     \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{username}\PY{o}{=}\PY{n}{username}\PY{p}{,} \PY{n}{password}\PY{o}{=}\PY{n}{password}\PY{p}{,}\PY{n}{schema}\PY{o}{=}\PY{n}{schema}\PY{p}{)}
+            \PY{n}{engine} \PY{o}{=} \PY{n}{create\PYZus{}engine}\PY{p}{(}\PY{n}{conn\PYZus{}str}\PY{p}{,} \PY{n}{pool\PYZus{}recycle}\PY{o}{=}\PY{l+m+mi}{1800}\PY{p}{)}
+            \PY{k}{return} \PY{n}{engine}
+        \PY{n}{RecSysConnect} \PY{o}{=} \PY{n}{partial}\PY{p}{(}\PY{n}{DatabaseConnect}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{root}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mysql\PYZhy{}password}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recsys}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{e} \PY{o}{=} \PY{n}{RecSysConnect}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}read ratings}
+        \PY{n}{sql\PYZus{}cmt} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{select userId, movieId, rating from ml100k\PYZus{}ratings;}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{raw\PYZus{}rating} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql\PYZus{}cmt}\PY{p}{,} \PY{n}{con}\PY{o}{=}\PY{n}{e}\PY{p}{)}
+        \PY{n}{rating} \PY{o}{=} \PY{n}{raw\PYZus{}rating}\PY{o}{.}\PY{n}{pivot}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{userId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{movieId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{rating}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} movieId  1     2     3     4     5     6     7     8     9     10    {\ldots}   \textbackslash{}
+        userId                                                               {\ldots}    
+        1         5.0   3.0   4.0   3.0   3.0   5.0   4.0   1.0   5.0   3.0  {\ldots}    
+        2         4.0   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   2.0  {\ldots}    
+        3         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  {\ldots}    
+        4         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  {\ldots}    
+        5         4.0   3.0   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  {\ldots}    
+        6         4.0   NaN   NaN   NaN   NaN   NaN   2.0   4.0   4.0   NaN  {\ldots}    
+        7         NaN   NaN   NaN   5.0   NaN   NaN   5.0   5.0   5.0   4.0  {\ldots}    
+        8         NaN   NaN   NaN   NaN   NaN   NaN   3.0   NaN   NaN   NaN  {\ldots}    
+        9         NaN   NaN   NaN   NaN   NaN   5.0   4.0   NaN   NaN   NaN  {\ldots}    
+        10        4.0   NaN   NaN   4.0   NaN   NaN   4.0   NaN   4.0   NaN  {\ldots}    
+        
+        movieId  1673  1674  1675  1676  1677  1678  1679  1680  1681  1682  
+        userId                                                               
+        1         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  
+        2         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  
+        3         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  
+        4         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  
+        5         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  
+        6         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  
+        7         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  
+        8         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  
+        9         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  
+        10        NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN  
+        
+        [10 rows x 1682 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}read holdout data}
+        \PY{n}{sql\PYZus{}cmt} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{select userId from ml100k\PYZus{}ratings group by userId order by count(*) DESC limit 100;}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{user\PYZus{}100} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql\PYZus{}cmt}\PY{p}{,} \PY{n}{con}\PY{o}{=}\PY{n}{e}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{userId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{sql\PYZus{}cmt} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{select movieId from ml100k\PYZus{}ratings group by movieId order by count(*) DESC limit 10;}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{movie\PYZus{}10} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{sql\PYZus{}cmt}\PY{p}{,} \PY{n}{con}\PY{o}{=}\PY{n}{e}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movieId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{holdout} \PY{o}{=} \PY{n}{rating}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user\PYZus{}100}\PY{p}{,}\PY{n}{movie\PYZus{}10}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{rating}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user\PYZus{}100}\PY{p}{,}\PY{n}{movie\PYZus{}10}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{nan}
+\end{Verbatim}
+
+
+    \subsection{Calculation of
+similarities}\label{calculation-of-similarities}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics}\PY{n+nn}{.}\PY{n+nn}{pairwise} 
+        
+        \PY{k}{def} \PY{n+nf}{center}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{df}\PY{o}{.}\PY{n}{sub}\PY{p}{(} \PY{n}{df}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0} \PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{cosine}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dff} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{k}{if} \PY{n}{axis} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:} \PY{c+c1}{\PYZsh{} Columns}
+                \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{sklearn}\PY{o}{.}\PY{n}{metrics}\PY{o}{.}\PY{n}{pairwise}\PY{o}{.}\PY{n}{cosine\PYZus{}similarity}\PY{p}{(}\PY{n}{dff}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{sklearn}\PY{o}{.}\PY{n}{metrics}\PY{o}{.}\PY{n}{pairwise}\PY{o}{.}\PY{n}{cosine\PYZus{}similarity}\PY{p}{(}\PY{n}{dff}\PY{p}{)}\PY{p}{,}   \PY{n}{index}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{,}   \PY{n}{columns}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{r\PYZus{}cent} \PY{o}{=} \PY{n}{center}\PY{p}{(}\PY{n}{rating}\PY{p}{)}
+        \PY{n}{userSim} \PY{o}{=} \PY{n}{rating}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pearson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}userSim = cosine(r\PYZus{}cent, axis=1)}
+        \PY{n}{itemSim} \PY{o}{=} \PY{n}{cosine}\PY{p}{(}\PY{n}{r\PYZus{}cent}\PY{p}{)}
+        \PY{n}{display}\PY{p}{(}\PY{n}{userSim}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{itemSim}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+userId       1         2         3         4         5         6         7    \
+userId                                                                         
+1       1.000000  0.156868 -0.069171 -0.666667  0.386678  0.298236  0.260460   
+2       0.156868  1.000000  0.067420  0.148522  0.327327  0.446269  0.381875   
+3      -0.069171  0.067420  1.000000 -0.262600       NaN -0.109109  0.104828   
+4      -0.666667  0.148522 -0.262600  1.000000  1.000000 -0.581318 -0.660529   
+5       0.386678  0.327327       NaN  1.000000  1.000000  0.241817  0.170291   
+
+userId       8         9         10     ...          934       935       936  \
+userId                                  ...                                    
+1       0.694108 -0.301511 -0.124713    ...     0.066802 -0.252820  0.435300   
+2       0.585491  0.242536  0.668145    ...     0.021007 -0.271163  0.214017   
+3       0.291937       NaN  0.311086    ...          NaN       NaN -0.045162   
+4       0.642938       NaN -0.301511    ...     0.500000       NaN -0.203653   
+5       0.537400  0.577350  0.087343    ...     0.229532 -0.500000  0.439286   
+
+userId       937       938       939       940       941       942       943  
+userId                                                                        
+1      -0.044483  0.157353  0.584437  0.257908  0.000000 -0.202777  0.048947  
+2       0.561645  0.331587  0.000000 -0.011682 -0.062017  0.085960  0.479702  
+3       0.000000 -0.137523       NaN -0.104678  1.000000 -0.011792       NaN  
+4            NaN  0.375000       NaN  0.850992  1.000000  0.412568       NaN  
+5       0.608581  0.484211  0.880705  0.027038  0.468521  0.318163  0.346234  
+
+[5 rows x 943 columns]
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+movieId      1         2         3         4         5         6         7     \
+movieId                                                                         
+1        1.000000 -0.023667 -0.042012  0.012120  0.007037 -0.002027  0.020884   
+2       -0.023667  1.000000  0.031568  0.030879  0.013452 -0.010600 -0.053574   
+3       -0.042012  0.031568  1.000000 -0.118348  0.012564  0.054819 -0.087453   
+4        0.012120  0.030879 -0.118348  1.000000 -0.149492 -0.022921  0.005652   
+5        0.007037  0.013452  0.012564 -0.149492  1.000000 -0.041295 -0.043651   
+
+movieId      8         9         10      ...         1673  1674      1675  \
+movieId                                  ...                                
+1        0.100244 -0.046859  0.002856    ...     0.066344   0.0  0.000000   
+2       -0.007358 -0.103660 -0.020773    ...     0.000000   0.0  0.000000   
+3       -0.151500 -0.066376 -0.049901    ...     0.000000   0.0  0.000000   
+4        0.111663  0.029485  0.009932    ...     0.000000   0.0 -0.114413   
+5        0.012695 -0.061202 -0.033263    ...     0.000000   0.0  0.000000   
+
+movieId      1676      1677  1678  1679  1680      1681      1682  
+movieId                                                            
+1        0.000000  0.012261   0.0   0.0   0.0  0.000000  0.000000  
+2        0.000000  0.000000   0.0   0.0   0.0  0.003661  0.034941  
+3        0.000000  0.201111   0.0   0.0   0.0  0.000000  0.031866  
+4       -0.114413  0.090004   0.0   0.0   0.0  0.002727 -0.048234  
+5        0.000000  0.000000   0.0   0.0   0.0  0.000000  0.043673  
+
+[5 rows x 1682 columns]
+    \end{verbatim}
+
+    
+    \subsection{Recommenders}\label{recommenders}
+
+\subsubsection{- randomized\_svd}\label{randomized_svd}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{svd\PYZus{}pred}\PY{p}{(}\PY{n}{rating}\PY{p}{,}\PY{n}{holdout}\PY{p}{)}\PY{p}{:}
+            \PY{n}{rating}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{rating}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+            \PY{n}{means} \PY{o}{=} \PY{n}{rating}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{cent}  \PY{o}{=} \PY{n}{rating}\PY{o}{.}\PY{n}{sub}\PY{p}{(} \PY{n}{means}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0} \PY{p}{)}
+            \PY{n}{U\PYZus{}}\PY{p}{,} \PY{n}{Sigma}\PY{p}{,} \PY{n}{VT\PYZus{}} \PY{o}{=} \PY{n}{randomized\PYZus{}svd}\PY{p}{(}\PY{n}{cent}\PY{o}{.}\PY{n}{to\PYZus{}sparse}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}coo}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tocsc}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{U} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{U\PYZus{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{rating}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+            \PY{n}{VT} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{VT\PYZus{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{rating}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+            \PY{n}{full} \PY{o}{=} \PY{n}{U}\PY{o}{.}\PY{n}{mul}\PY{p}{(}\PY{n}{Sigma}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{VT}\PY{p}{)}
+            \PY{n}{full}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{n}{full}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+            \PY{n}{means} \PY{o}{=} \PY{n}{rating}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user\PYZus{}100}\PY{p}{]}
+            \PY{n}{prediction} \PY{o}{=} \PY{n}{full}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user\PYZus{}100}\PY{p}{,}\PY{n}{movie\PYZus{}10}\PY{p}{]}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{means}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{y\PYZus{}true}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+            \PY{n}{y\PYZus{}predicted}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{u} \PY{o+ow}{in} \PY{n}{holdout}\PY{o}{.}\PY{n}{index}\PY{p}{:}
+                \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{holdout}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                    \PY{k}{if} \PY{p}{(}\PY{n}{holdout}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{u}\PY{p}{,}\PY{n}{m}\PY{p}{]}\PY{o}{==}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{y\PYZus{}true}\PY{o}{+}\PY{p}{[}\PY{n}{holdout}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{u}\PY{p}{,}\PY{n}{m}\PY{p}{]}\PY{p}{]}
+                        \PY{n}{y\PYZus{}predicted}\PY{o}{=}\PY{n}{y\PYZus{}predicted}\PY{o}{+}\PY{p}{[}\PY{n}{prediction}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{u}\PY{p}{,}\PY{n}{m}\PY{p}{]}\PY{p}{]}
+            \PY{k}{return} \PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}predicted}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{y\PYZus{}true\PYZus{}svd}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}svd} \PY{o}{=} \PY{n}{svd\PYZus{}pred}\PY{p}{(}\PY{n}{rating}\PY{p}{,}\PY{n}{holdout}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{y\PYZus{}true\PYZus{}svd}\PY{p}{,}\PY{n}{y\PYZus{}pred\PYZus{}svd}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}         0         1         2         3        4         5         6    \textbackslash{}
+         0  5.000000  5.000000  5.000000  4.000000  2.00000  3.000000  3.000000   
+         1  3.969673  3.624942  2.092731  3.329952  2.95191  3.541682  2.897582   
+         
+                 7         8         9      {\ldots}          745       746      747  \textbackslash{}
+         0  3.000000  3.000000  3.000000    {\ldots}     5.000000  4.000000  5.00000   
+         1  2.428885  2.977192  2.705344    {\ldots}     3.488522  3.394138  3.49022   
+         
+                 748      749       750       751      752       753       754  
+         0  5.000000  5.00000  4.000000  4.000000  4.00000  4.000000  1.000000  
+         1  3.973007  3.68861  4.086564  3.667382  3.31407  3.672904  3.285864  
+         
+         [2 rows x 755 columns]
+\end{Verbatim}
+            
+    \subsubsection{- user-based}\label{user-based}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{recommendUser}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{user}\PY{p}{,} \PY{n}{item}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{weighted}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+             \PY{n}{knn} \PY{o}{=} \PY{n}{userSim}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{user}\PY{p}{)}\PY{o}{.}\PY{n}{nlargest}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+             \PY{n}{norm} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{rating} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{u} \PY{o+ow}{in} \PY{n}{knn}\PY{o}{.}\PY{n}{index}\PY{p}{:}
+                 \PY{n}{rating} \PY{o}{+}\PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{u}\PY{p}{,} \PY{n}{item}\PY{p}{]} \PY{o}{*} \PY{n}{knn}\PY{p}{[}\PY{n}{u}\PY{p}{]} 
+             \PY{n}{rating} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{clip}\PY{p}{(} \PY{n}{rating} \PY{o}{/} \PY{n}{norm}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{5} \PY{p}{)}    
+             \PY{k}{return} \PY{p}{(}\PY{n}{rating}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{user\PYZus{}based}\PY{p}{(}\PY{n}{rating}\PY{p}{,}\PY{n}{holdout}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rating}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{rating}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+             \PY{n}{y\PYZus{}true}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{n}{y\PYZus{}predicted}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{u} \PY{o+ow}{in} \PY{n}{holdout}\PY{o}{.}\PY{n}{index}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{holdout}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                     \PY{k}{if} \PY{p}{(}\PY{n}{holdout}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{u}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{==}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{y\PYZus{}true}\PY{o}{+}\PY{p}{[}\PY{n}{holdout}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{u}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                         \PY{n}{y\PYZus{}predicted}\PY{o}{=}\PY{n}{y\PYZus{}predicted}\PY{o}{+}\PY{p}{[}\PY{n}{recommendUser}\PY{p}{(}\PY{n}{rating}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{n}{y\PYZus{}true}\PY{p}{,}\PY{n}{y\PYZus{}predicted}
+         \PY{n}{y\PYZus{}true\PYZus{}user}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}user} \PY{o}{=} \PY{n}{user\PYZus{}based}\PY{p}{(}\PY{n}{rating}\PY{p}{,}\PY{n}{holdout}\PY{p}{)}
+         \PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{y\PYZus{}true\PYZus{}user}\PY{p}{,}\PY{n}{y\PYZus{}pred\PYZus{}user}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y\PYZus{}true\PYZus{}user} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{y\PYZus{}pred\PYZus{}user} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{display}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   2         7    9    11        17        18        21   27   28        46   \
+0  5.0  3.000000  3.0  3.0  2.000000  3.000000  1.000000  4.0  4.0  4.000000   
+1  3.0  3.989795  4.0  4.0  2.946724  3.579914  3.473362  3.0  4.0  4.463657   
+
+  ...   683  688  699  707  717  718  720  722  734  752  
+0 ...   5.0  3.0  5.0  5.0  3.0  5.0  3.0  4.0  3.0  4.0  
+1 ...   3.5  2.0  3.0  3.5  3.0  3.0  2.5  4.5  3.5  2.5  
+
+[2 rows x 104 columns]
+    \end{verbatim}
+
+    
+    \subsubsection{- item-based}\label{item-based}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{recommendItem}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{user}\PY{p}{,} \PY{n}{item}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{weighted}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+             \PY{n}{knn} \PY{o}{=} \PY{n}{itemSim}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{item}\PY{p}{]}\PY{p}{[} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user}\PY{p}{]}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)} \PY{p}{]}
+             \PY{n}{knn} \PY{o}{=} \PY{n}{knn}\PY{p}{[} \PY{n}{knn}\PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{item}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{nlargest}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+             \PY{k}{if} \PY{n}{weighted}\PY{p}{:}
+                \PY{n}{norm} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:} 
+                \PY{n}{knn}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{fill}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{knn}\PY{p}{)}\PY{p}{)} 
+                \PY{n}{norm} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{ratings} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{knn}\PY{o}{.}\PY{n}{index}\PY{p}{:}
+                 \PY{n}{ratings} \PY{o}{+}\PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{knn}\PY{p}{[}\PY{n}{i}\PY{p}{]} 
+             \PY{n}{ratings} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{clip}\PY{p}{(} \PY{n}{ratings} \PY{o}{/} \PY{n}{norm}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{5} \PY{p}{)}    
+             \PY{k}{return} \PY{p}{(}\PY{n}{ratings}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{item\PYZus{}based}\PY{p}{(}\PY{n}{rating}\PY{p}{,}\PY{n}{holdout}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rating}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{rating}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+             \PY{n}{y\PYZus{}true}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{n}{y\PYZus{}predicted}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{u} \PY{o+ow}{in} \PY{n}{holdout}\PY{o}{.}\PY{n}{index}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{holdout}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                     \PY{k}{if} \PY{p}{(}\PY{n}{holdout}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{u}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{==}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{y\PYZus{}true}\PY{o}{+}\PY{p}{[}\PY{n}{holdout}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{u}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                         \PY{n}{y\PYZus{}predicted}\PY{o}{=}\PY{n}{y\PYZus{}predicted}\PY{o}{+}\PY{p}{[}\PY{n}{recommendItem}\PY{p}{(}\PY{n}{rating}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{n}{y\PYZus{}true}\PY{p}{,}\PY{n}{y\PYZus{}predicted}
+         \PY{n}{y\PYZus{}true\PYZus{}item}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}item} \PY{o}{=} \PY{n}{item\PYZus{}based}\PY{p}{(}\PY{n}{rating}\PY{p}{,}\PY{n}{holdout}\PY{p}{)}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{y\PYZus{}true\PYZus{}item}\PY{p}{,}\PY{n}{y\PYZus{}pred\PYZus{}item}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}    0    1         2         3    4         5         6         7         8    \textbackslash{}
+         0  5.0  5.0  5.000000  4.000000  2.0  3.000000  3.000000  3.000000  3.000000   
+         1  5.0  5.0  2.857781  3.531249  4.0  4.048189  3.601238  2.499696  2.429392   
+         
+                 9      {\ldots}     745  746       747       748       749       750  \textbackslash{}
+         0  3.000000    {\ldots}     5.0  4.0  5.000000  5.000000  5.000000  4.000000   
+         1  2.587803    {\ldots}     4.0  4.0  4.417514  3.531249  3.490975  4.551081   
+         
+                 751       752       753       754  
+         0  4.000000  4.000000  4.000000  1.000000  
+         1  3.601238  3.473194  3.468862  2.835027  
+         
+         [2 rows x 755 columns]
+\end{Verbatim}
+            
+    \subsection{Evaluation: MSE MAE}\label{evaluation-mse-mae}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{,}\PY{n}{mean\PYZus{}absolute\PYZus{}error}
+         \PY{k}{def} \PY{n+nf}{evaluation}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}predicted}\PY{p}{)}\PY{p}{:}
+             \PY{n}{result}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{y\PYZus{}true}\PY{p}{,}\PY{n}{y\PYZus{}predicted}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}MAE=np.mean(np.abs(result[0] \PYZhy{} result[1]))/755}
+             \PY{n}{MAE} \PY{o}{=} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,}\PY{n}{y\PYZus{}predicted}\PY{p}{)}
+             \PY{n}{RMSE} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,}\PY{n}{y\PYZus{}predicted}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}RMSE=np.mean((result[0] \PYZhy{} result[1])**2)/755}
+             \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MAE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{MAE}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{RMSE}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{evaluation}\PY{p}{(}\PY{n}{y\PYZus{}true\PYZus{}svd}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}svd}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+        0         1         2         3        4         5         6    \textbackslash{}
+0  5.000000  5.000000  5.000000  4.000000  2.00000  3.000000  3.000000   
+1  3.969673  3.624942  2.092731  3.329952  2.95191  3.541682  2.897582   
+
+        7         8         9      {\ldots}          745       746      747  \textbackslash{}
+0  3.000000  3.000000  3.000000    {\ldots}     5.000000  4.000000  5.00000   
+1  2.428885  2.977192  2.705344    {\ldots}     3.488522  3.394138  3.49022   
+
+        748      749       750       751      752       753       754  
+0  5.000000  5.00000  4.000000  4.000000  4.00000  4.000000  1.000000  
+1  3.973007  3.68861  4.086564  3.667382  3.31407  3.672904  3.285864  
+
+[2 rows x 755 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+'MAE'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+0.7386856980861768
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'RMSE'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+0.9117497430960818
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{evaluation}\PY{p}{(}\PY{n}{y\PYZus{}true\PYZus{}item}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}item}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   0    1         2         3    4         5         6         7         8    \textbackslash{}
+0  5.0  5.0  5.000000  4.000000  2.0  3.000000  3.000000  3.000000  3.000000   
+1  5.0  5.0  2.857781  3.531249  4.0  4.048189  3.601238  2.499696  2.429392   
+
+        9      {\ldots}     745  746       747       748       749       750  \textbackslash{}
+0  3.000000    {\ldots}     5.0  4.0  5.000000  5.000000  5.000000  4.000000   
+1  2.587803    {\ldots}     4.0  4.0  4.417514  3.531249  3.490975  4.551081   
+
+        751       752       753       754  
+0  4.000000  4.000000  4.000000  1.000000  
+1  3.601238  3.473194  3.468862  2.835027  
+
+[2 rows x 755 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+'MAE'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+0.6783970962926593
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'RMSE'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+0.9412219376564158
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{evaluation}\PY{p}{(}\PY{n}{y\PYZus{}true\PYZus{}user}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}user}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   2         7    9    11        17        18        21   27   28        46   \textbackslash{}
+0  5.0  3.000000  3.0  3.0  2.000000  3.000000  1.000000  4.0  4.0  4.000000   
+1  3.0  3.989795  4.0  4.0  2.946724  3.579914  3.473362  3.0  4.0  4.463657   
+
+  {\ldots}   683  688  699  707  717  718  720  722  734  752  
+0 {\ldots}   5.0  3.0  5.0  5.0  3.0  5.0  3.0  4.0  3.0  4.0  
+1 {\ldots}   3.5  2.0  3.0  3.5  3.0  3.0  2.5  4.5  3.5  2.5  
+
+[2 rows x 104 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+'MAE'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+1.0512574811196467
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'RMSE'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+1.2742844501470791
+    \end{verbatim}
+
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}Use suprise package}
+         \PY{k+kn}{from} \PY{n+nn}{surprise} \PY{k}{import} \PY{n}{SVD}
+         \PY{k+kn}{from} \PY{n+nn}{surprise}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}validate}
+         \PY{k+kn}{from} \PY{n+nn}{surprise} \PY{k}{import} \PY{n}{Reader}\PY{p}{,}\PY{n}{Dataset}
+         \PY{n}{reader} \PY{o}{=} \PY{n}{Reader}\PY{p}{(}\PY{n}{rating\PYZus{}scale}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} The columns must correspond to user id, item id and ratings (in that order).}
+         \PY{n}{data} \PY{o}{=} \PY{n}{Dataset}\PY{o}{.}\PY{n}{load\PYZus{}from\PYZus{}df}\PY{p}{(}\PY{n}{raw\PYZus{}rating}\PY{p}{,} \PY{n}{reader}\PY{p}{)}
+         \PY{n}{cross\PYZus{}validate}\PY{p}{(}\PY{n}{SVD}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{measures}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RMSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MAE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Evaluating RMSE, MAE of algorithm SVD on 2 split(s).
+
+                  Fold 1  Fold 2  Mean    Std     
+RMSE (testset)    0.9598  0.9560  0.9579  0.0019  
+MAE (testset)     0.7583  0.7563  0.7573  0.0010  
+Fit time          3.38    4.16    3.77    0.39    
+Test time         0.66    0.59    0.63    0.04    
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} \{'fit\_time': (3.375916004180908, 4.163803815841675),
+          'test\_mae': array([0.75829125, 0.7563168 ]),
+          'test\_rmse': array([0.95982148, 0.95600433]),
+          'test\_time': (0.6646459102630615, 0.5870378017425537)\}
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
